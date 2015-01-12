@@ -958,6 +958,7 @@ function! s:generic_review(argslist)                                   "{{{
     return
   endif
 
+  let l:cwd = getcwd()
   call s:me.buflog('Source directory: ' . getcwd())
   call s:me.buflog('------------------')
   if exists('l:strip_count')
@@ -1007,6 +1008,7 @@ function! s:generic_review(argslist)                                   "{{{
       let l:stripped_rel_path = substitute(l:stripped_rel_path, '^[^\\\/]\+[^\\\/]*[\\\/]' , '' , '')
       let l:stripmore -= 1
     endwhile
+    let l:stripped_rel_path = l:cwd . "/" . l:stripped_rel_path
     if patch.type == '!'
       if s:reviewmode =~ 'patch'
         let l:msgtype = 'Patch modifies file: '
